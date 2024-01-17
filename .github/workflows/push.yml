@@ -39,4 +39,9 @@ jobs:
           
       - name: Terraform Init
         id: init
-        run: terraform init -backend-config="bucket=${{secrets.BUCKET_NAME}}" -backend-config="bucket=${{secrets.DYNAMO_TABLE}}" -backend-config="bucket=${{secrets.FILE_KEY}}" -backend-config="bucket=${{secrets.KMS_KEY_ID}}" 
+        env:
+            BUCKET_NAME: ${{secrets.BUCKET_NAME}}
+            DYNAMO_TABLE: ${{secrets.DYNAMO_TABLE}}
+            FILE_KEY: ${{secrets.FILE_KEY}}
+            KMS_KEY_ID: ${{secrets.KMS_KEY_ID}}
+        run: terraform init -backend-config="bucket=$BUCKET_NAME" -backend-config="bucket=$DYNAMO_TABLE" -backend-config="bucket=$FILE_KEY" -backend-config="bucket=$KMS_KEY_ID" 

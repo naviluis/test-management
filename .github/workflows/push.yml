@@ -39,4 +39,4 @@ jobs:
           
       - name: Terraform Init
         id: init
-        run: terraform init -backend-config="backend.tf"
+        run: terraform init -backend-config="backend.tf"   -backend-config="bucket=${{secrets.BUCKET_NAME}}" -backend-config="bucket=${{secrets.DYNAMO_TABLE}}" -backend-config="bucket=${{secrets.FILE_KEY}}" -backend-config="bucket=${{secrets.KMS_KEY_ID}}" 

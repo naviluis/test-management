@@ -1,5 +1,4 @@
   
-  backend "s3" {
     bucket         = ""
     dynamodb_table = ""
     key            = ""
@@ -7,4 +6,4 @@
     kms_key_id     = ""
     region         = "us-east-1"
     profile        = ""
-  }
+  

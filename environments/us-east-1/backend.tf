@@ -1,12 +1,12 @@
 terraform {
   
   backend "s3" {
-    bucket         = "${{secrets.BUCKET_NAME}}"
-    dynamodb_table = "${{secrets.DYNAMO_TABLE}}"
+    bucket         = ""
+    dynamodb_table = ""
     key            = "${{secrets.FILE_KEY}}"
     encrypt        = true
-    kms_key_id     = "${{secrets.KMS_KEY_ID}}"
+    kms_key_id     = ""
     region         = "us-east-1"
-    profile        = "${{secrets.PROFILE}}"
+    profile        = ""
   }
 }

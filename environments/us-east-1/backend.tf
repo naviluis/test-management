@@ -1,4 +1,4 @@
-terraform {
+
   
   backend "s3" {
     bucket         = ""
@@ -9,4 +9,3 @@ terraform {
     region         = "us-east-1"
     profile        = ""
   }
-}

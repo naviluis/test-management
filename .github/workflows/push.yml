@@ -44,4 +44,4 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         KMS_KEY_ID: ${{secrets.KMS_KEY_ID}}
-      run: terraform init -backend-config="kms_key_ide=$KMS_KEY_ID"
+      run: terraform init -backend-config="kms_key_id=$KMS_KEY_ID"

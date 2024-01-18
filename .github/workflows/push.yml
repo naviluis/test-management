@@ -20,28 +20,30 @@ jobs:
 
           
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: "1.6.2"
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1 # replace with your AWS region    
+     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration.
+    - name: Install Terraform
+      run: |
+        wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+        echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+        sudo apt update && sudo apt install terraform
           
-      - name: Terraform Init
-        id: init
-        env:
-            BUCKET_NAME: ${{secrets.BUCKET_NAME}}
-            DYNAMO_TABLE: ${{secrets.DYNAMO_TABLE}}
-            FILE_KEY: ${{secrets.FILE_KEY}}
-            KMS_KEY_ID: ${{secrets.KMS_KEY_ID}}
-        run: terraform init -backend-config="bucket=$BUCKET_NAME" -backend-config="bucket=$DYNAMO_TABLE" -backend-config="bucket=$FILE_KEY" -backend-config="bucket=$KMS_KEY_ID" 
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1 # replace with your AWS region    
+          
+    - name: Terraform Init
+      id: init
+      env:
+          BUCKET_NAME: ${{secrets.BUCKET_NAME}}
+          DYNAMO_TABLE: ${{secrets.DYNAMO_TABLE}}
+          FILE_KEY: ${{secrets.FILE_KEY}}
+          KMS_KEY_ID: ${{secrets.KMS_KEY_ID}}
+      run: terraform init -backend-config="bucket=$BUCKET_NAME" -backend-config="bucket=$DYNAMO_TABLE" -backend-config="bucket=$FILE_KEY" -backend-config="bucket=$KMS_KEY_ID" 

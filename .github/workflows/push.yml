@@ -43,4 +43,9 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: terraform init
+        KMS_KEY_ID: ${{secrets.KMS_KEY_ID}}
+        BUCKET_NAME: ${{secrets.BUCKET_NAME}}
+        DYNAMO_TABLE: ${{secrets.DYNAMO_TABLE}}
+        FILE_KEY: ${{secrets.FILE_KEY}}
+      run: terraform init -backend-config="kms_key_id=$KMS_KEY_ID" -backend-config="bucket=$BUCKET_NAME" -backend-config="dynamodb_table=$DYNAMO_TABLE" -backend-config="key=$FILE_KEY"
+

@@ -46,5 +46,5 @@ jobs:
         KMS_KEY_ID: ${{secrets.KMS_KEY_ID}}
         BUCKET_NAME: ${{secrets.BUCKET_NAME}}
         DYNAMO_TABLE: ${{secrets.DYNAMO_TABLE}}
-        
-      run: terraform init -backend-config="kms_key_id=$KMS_KEY_ID"
+        FILE_KEY: ${{secrets.FILE_KEY}}
+      run: terraform init -backend-config="kms_key_id=$KMS_KEY_ID" -backend-config="bucket=$BUCKET_NAME" -backend-config="dynamodb_table=$DYNAMO_TABLE" -backend-config="file_key=$FILE_KEY"

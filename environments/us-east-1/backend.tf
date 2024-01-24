@@ -6,7 +6,7 @@ terraform {
     encrypt        = true
     kms_key_id     = "[[KMS_KEY_ID]]"
     region         = "us-east-1"
-    profile        = "[[PROFILE]]"
+    profile        = "test-git"
  } 
 }
 

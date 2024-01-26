@@ -49,16 +49,16 @@ jobs:
            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile $PROFILE 
            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile $PROFILE     
 
-    # - name: Terraform Init
-    #   env:
-    #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #     KMS_KEY_ID: ${{secrets.KMS_KEY_ID}}
-    #     BUCKET_NAME: ${{secrets.BUCKET_NAME}}
-    #     DYNAMO_TABLE: ${{secrets.DYNAMO_TABLE}}
-    #     FILE_KEY: ${{secrets.FILE_KEY}}
-    #     PROFILE: ${{secrets.PROFILE}}
-    #   run: terraform init -backend-config="kms_key_id=$KMS_KEY_ID" -backend-config="bucket=$BUCKET_NAME" -backend-config="dynamodb_table=$DYNAMO_TABLE" -backend-config="key=$FILE_KEY" -backend-config="profile=$PROFILE"
+    - name: Terraform Init
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        KMS_KEY_ID: ${{secrets.KMS_KEY_ID}}
+        BUCKET_NAME: ${{secrets.BUCKET_NAME}}
+        DYNAMO_TABLE: ${{secrets.DYNAMO_TABLE}}
+        FILE_KEY: ${{secrets.FILE_KEY}}
+        PROFILE: ${{secrets.PROFILE}}
+      run: terraform init -backend-config="kms_key_id=$KMS_KEY_ID" -backend-config="bucket=$BUCKET_NAME" -backend-config="dynamodb_table=$DYNAMO_TABLE" -backend-config="key=$FILE_KEY" -backend-config="profile=$PROFILE"
     
     - name: Terraform Plan
       env:

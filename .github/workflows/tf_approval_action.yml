@@ -44,11 +44,11 @@ jobs:
       env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          PROFILE: ${{secrets.PROFILE}}
+          AWS_PROFILE: ${{secrets.PROFILE}}
       run: |
-           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile $PROFILE 
-           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile $PROFILE     
-
+           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile $AWS_PROFILE 
+           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile $AWS_PROFILE     
+           aws configure set aws_region "us-east-1" --profile $AWS_PROFILE
     - name: Terraform Init
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

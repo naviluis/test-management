@@ -7,6 +7,7 @@ terraform {
     kms_key_id     = "[[KMS_KEY_ID]]"
     region         = "us-east-1"
     profile        = "test-git"
+    skip_s3_checksum = true
  } 
 }
 
